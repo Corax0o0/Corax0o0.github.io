@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://Corax0o0.github.io</id>
+    <title>Corax</title>
+    <updated>2022-12-05T04:25:34.846Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://Corax0o0.github.io"/>
+    <link rel="self" href="https://Corax0o0.github.io/atom.xml"/>
+    <subtitle>成为想成为的</subtitle>
+    <logo>https://Corax0o0.github.io/images/avatar.png</logo>
+    <icon>https://Corax0o0.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, Corax</rights>
+    <entry>
+        <title type="html"><![CDATA[[第二章]  壹]]></title>
+        <id>https://Corax0o0.github.io/post/di-er-zhang-yi/</id>
+        <link href="https://Corax0o0.github.io/post/di-er-zhang-yi/">
+        </link>
+        <updated>2022-11-28T15:47:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="21ollydbg调试器">2.1OllyDbg调试器</h1>
+<h2 id="ollydbg界面">OllyDbg界面</h2>
+<p><img src="https://Corax0o0.github.io/post-images/1669650892170.png" alt="" loading="lazy"><br>
+C窗口是最重要的窗口，绝大部分都要在这个窗口进行，有五个面板窗口，分别是反汇编面板，寄存器面板，信息面板，数据面板和栈面板。</p>
+<h3 id="1反汇编面板窗口">1.反汇编面板窗口</h3>
+<p><img src="https://Corax0o0.github.io/post-images/1669651289012.png" alt="" loading="lazy"><br>
+从左到右分别是地址，十六进制的机器码，反汇编代码和注释。</p>
+<h3 id="2信息面板窗口">2.信息面板窗口</h3>
+<p><img src="https://Corax0o0.github.io/post-images/1669651454836.png" alt="" loading="lazy"><br>
+在进行动态分析时，这个面板会显示各种寄存器的值，API函数调用提示和跳转信息。</p>
+<h3 id="3数据面板窗口">3.数据面板窗口</h3>
+<p><img src="https://Corax0o0.github.io/post-images/1669651569386.png" alt="" loading="lazy"><br>
+以十六进制和字符方式显示文件存放内存中的数据。</p>
+<h3 id="4寄存器面板窗口">4.寄存器面板窗口</h3>
+<p><img src="https://Corax0o0.github.io/post-images/1669651712253.png" alt="" loading="lazy"><br>
+显示各种寄存器的值。</p>
+<h3 id="5栈面板窗口">5.栈面板窗口</h3>
+<p><img src="https://Corax0o0.github.io/post-images/1669651755011.png" alt="" loading="lazy"><br>
+显示栈的内容，即ESP指向的内容。</p>
+<h2 id="ollydbg的配置">OllyDbg的配置</h2>
+<h3 id="1界面设置">1.界面设置</h3>
+<p>可以设置UDD文件和插件的路径，并且设置外观。<br>
+UDD文件是OllyDbg的工程文件，用于保存当前调试的一些状态，以便于下次调试使用。插件用于扩充功能。</p>
+<h3 id="2调试设置">2.调试设置</h3>
+<p>可以使OllyDbg忽略或者不忽略某些异常，可以全部选择。</p>
+<h3 id="3加载符号文件">3.加载符号文件</h3>
+<p>它使用符号库让OllyDbg以函数名的形式显示DLL的函数。例如，MFC42.DLL以序号的形式输出函数，这时在OllyDbg中显示的序号，如果让其加载MFC42.DLL，将以函数名的形式输出它。</p>
+<h2 id="基本操作">基本操作</h2>
+<h3 id="1准备工作">1.准备工作</h3>
+<p>在Windows程序当中需要调用许多的API函数，只要了解哪些API函数被调用，就可以很容易找到一些线索。因此在逆向分析的时候选择以什么API函数为入口就十分重要。</p>
+<h3 id="2加载目标文件进行调试">2.加载目标文件进行调试</h3>
+<p>为了使ollydbg可以中断在程序的入口处，加载程序前要做相应的设置。比如在WinMain地方中断，模块的加载与卸载，线程的操作等等。<br>
+有些程序会使用特别的修改方式使调试的时候不停在入口，以达到反调试的目的。</p>
+<h3 id="3单步追踪">3.单步追踪</h3>
+<p>调试器最基本的一个功能就是动态跟踪。<br>
+<img src="https://Corax0o0.github.io/post-images/1669806641315.png" alt="" loading="lazy"><br>
+需要注意好单步步进和单步步过的区别：步进进入call，步过不进入call。</p>
+<h3 id="4设置断点">4.设置断点</h3>
+<p>这是调试器的一个相当重要的功能，可以让程序中断在指定的地方，从而进行分析。按F2将光标处设置一个断点，再次点击就可以取消断点。<br>
+设置断点后按Alt＋B的快捷键，打开断点窗口，可以看到断点的明细。”Always“断点处于激活状态，”Disable“表示断点停用。<br>
+<img src="https://Corax0o0.github.io/post-images/1669807064472.png" alt="" loading="lazy"></p>
+<h3 id="5调试分析">5.调试分析</h3>
+<p>可以通过不停地下一步“F8”，然后看数据和栈库里面的信息调试，进行分析。</p>
+<h3 id="6爆破法">6.爆破法</h3>
+<p>通过序列号的判断核心。例如如下的这个过程。<br>
+<img src="https://Corax0o0.github.io/post-images/1669807671073.png" alt="" loading="lazy"><br>
+跳过这个判断的过程，通过以下的方式就可以跳过。<br>
+<img src="https://Corax0o0.github.io/post-images/1669808237178.png" alt="" loading="lazy"><br>
+这个方法成为爆破法。</p>
+<h3 id="7算法分析">7.算法分析</h3>
+<p>这个方法是推荐我们在程序的过程当中把算法给分析明白。知道汇编代码调用了什么函数就可以进入它，通过观察栈的情况来一步一步监视数据的变化，可以找到需要的数据了。</p>
+<h2 id="常用断点">常用断点</h2>
+<h3 id="1int3断点">1.INT3断点</h3>
+<p>这是一个十分常用的断点，原理是通过将光标所指向的内容用调试器替换成INT3指令，使之可以中断在那个地方。（但在Ollydbg里面看的时候该是什么指令还是什么指令）<br>
+<img src="https://Corax0o0.github.io/post-images/1669898334724.png" alt="" loading="lazy"><br>
+INT3指令因为他的机器码也是CC，所以也被称为CC代码。当调试到执行INT3指令的时候会跳出一个异常，这个异常是程序中断在断点处，之后将该处的指令从INT3变回原来的指令。<br>
+可以设置无数个INT3断点，缺点就是改变了机器码，很容易被程序检测到。例如有些程序会检测API的首地址是不是0xCC来防止API被下断。<br>
+<strong>躲过检测的方法就是将断点设置在函数内部或者末尾，例如将断点设置在函数入口的下一行。</strong></p>
+<h3 id="2硬件断点">2.硬件断点</h3>
+<p>硬件断点和DRx调试寄存器有关。<br>
+<img src="https://Corax0o0.github.io/post-images/1669899051012.png" alt="" loading="lazy"><br>
+DRx调试寄存器共8个。<br>
+<strong>DR0~DR3调试地址寄存器来保存需要监视的地址。</strong><br>
+DR4~DR5保留，未公开。<br>
+DR6调试寄存器组状态寄存器。<br>
+DR7调试寄存器组控制寄存器。<br>
+硬件断点原理就是使用DR0123设置地址并使用DR7设定状态，最多设置4个断点。硬件执行断点和CC断点一致，但不会改变机器码所以更难检测。设置方法是在指定的代码行右键，在Breakpoint中Hardware，on execution命令。假使我们在4013AAh位置设置一个硬件断点，那么Ollydbg就会让DR0~DR3中一个设置为004013AA，然后在DR7中设置相应的控制位。当调试进程到004013AAh的地方CPU就会向Ollydbg发出异常信息，中断。<br>
+硬件断点优点就是速度快，不容易被程序发现，缺点是只能设置4个断点。</p>
+<h3 id="3内存断点">3.内存断点</h3>
+<p>原理是对所设的地址赋予不可访问/不可写属性，这样当访问/写入的时候就会产生异常。OllyDbg会截获异常然后比较这个地址是不是断点地址，如果是就中断，让用户继续操作。因此每次异常都需要比较是否应该中断，这样就会导致运行速度变慢。OllyDbg也只能设定一个内存断点。<br>
+需要注意的是，硬件访问/写入断点是在出发硬件断点的下一条指令下断，内存断点是在触发断点的指令处下断。<br>
+这个方法也不用修改原始代码，不会像INT3那样被检测。</p>
+<h3 id="4内存访问一次性断点">4.内存访问一次性断点</h3>
+<p>这个方法是对一个段进行设置一个一次性断点，当所在段被读取他就会中断。如果想捕捉调用或返回某个模块时候，这个断点就非常有用。进行一次中断后，断点就会被删除。</p>
+<h3 id="5消息断点"><strong>5.消息断点</strong></h3>
+<p>Windows是由消息驱动的，如果调试没有合适的断点就可以使用消息断点。当某个特定窗口接收到某个特定消息后，消息断点就会使程序中断。INT3断点在程序启动前设置，消息断点只有在窗口被创建的时候才能设置并拦截消息。<br>
+当用户单击一个按钮，移动光标或者向文本框输入文字的时候，一条消息就会发送给当前窗体。所有发送的消息都有4个参数。分别涉及一个窗口句柄（hwnd），一个消息编号（msg）和2个32位长的参数。Windows通过句柄来识别它所代表的对象。例如，在单击某个按钮的时候，Windows通过句柄来判断单机了哪一个按钮，然后发送相应的消息来通知程序。<br>
+例如下面的TraceMe，运行后这个窗口列出了所有属于被调试程序窗口及窗口相关的重要参数，例如按钮，相应的ID以及句柄。我们现在要对Check按钮下断点，即单击该按钮的时候程序中断。在check条目上单击右键。<br>
+<img src="https://Corax0o0.github.io/post-images/1670213579245.png" alt="" loading="lazy"><br>
+回到TraceMe界面，单击check按钮，松开鼠标时，程序就会中断在Windows<strong>系统代码</strong>中，代码如下。<br>
+<img src="https://Corax0o0.github.io/post-images/1670213993832.png" alt="" loading="lazy"><br>
+消息已经捕捉到，但仍然处于系统底层代码当中，不属于TraceMe主程序的代码，这是企图用alt+f9来返回程序代码领空是不行的。<br>
+主程序在00401000h开头的.text区块里。从系统代码回到程序代码段的时候就是.text区块代码执行的时候，因此对.texr也下一个内存断点就可以返回应用程序的代码领空。<br>
+<img src="https://Corax0o0.github.io/post-images/1670214193838.png" alt="" loading="lazy"><br>
+这段代码是一个消息循环，不停处理TraceMe主界面各种消息，此时可能不会直接处理按钮事件。如果单步追踪，就会进入系统代码。在系统代码里，按Alt+m快捷键打开内存窗口，对.text区块进行内存访问的点点，在按f9执行内存断点就可以返回代码段，重复这个过程就可以达到处理按钮的效果了。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[你好]]></title>
+        <id>https://Corax0o0.github.io/post/ni-hao/</id>
+        <link href="https://Corax0o0.github.io/post/ni-hao/">
+        </link>
+        <updated>2022-11-27T18:24:41.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="文章请移步标签">文章请移步&lt;标签&gt;</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[第一篇]  壹]]></title>
+        <id>https://Corax0o0.github.io/post/di-yi-pian/</id>
+        <link href="https://Corax0o0.github.io/post/di-yi-pian/">
+        </link>
+        <updated>2022-11-27T18:21:37.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="12文本字符">1.2文本字符</h1>
+<p>具体已经在王爽老师《汇编语言》中学习过。<br>
+本节主要介绍字符集和字节存储顺序。</p>
+<h2 id="asc2与unicode字符集">ASC2与Unicode字符集</h2>
+<p>罗列了用十六进制数（Hex）和十进制（Dec）表示的部分常用的asc2值。<br>
+<img src="https://Corax0o0.github.io/post-images/1669573343213.png" alt="" loading="lazy"><br>
+然后介绍了Unicode：是Asc2码的一个拓展，在windows中使用二字节进行编码，称为宽字符集。<br>
+其中所有字符都是16进制，asc2码被扩充为16位（高位扩充为0）。<br>
+<img src="https://Corax0o0.github.io/post-images/1669573359903.png" alt="" loading="lazy"><br>
+注：1字节对应8位二进制。</p>
+<h2 id="字符存储顺序">字符存储顺序</h2>
+<p>分为大端和小端<br>
+<img src="https://Corax0o0.github.io/post-images/1669574049528.png" alt="" loading="lazy"><br>
+<img src="https://Corax0o0.github.io/post-images/1669574068955.png" alt="" loading="lazy"></p>
+<h1 id="13windows操作系统">1.3Windows操作系统</h1>
+<h2 id="win32api函数">win32API函数</h2>
+<p>在windows发展的初期，程序员能够使用的只有API函数。这些函数提供程序运行所需要的窗口管理，图形设备接口，内存管理等等内容。这些功能以函数库形式组织在一起形成了windows应用程序编程接口（API），所以可以认为API是整个windows框架的基石，下面是操作系统核心，上面是应用程序。<br>
+<img src="https://Corax0o0.github.io/post-images/1669574337818.png" alt="" loading="lazy"><br>
+用于16位Windows的api为“Win16”，同理“Win32”。64位Windows用的还是Win32的函数名，但是使用64位实现。</p>
+<p>Windows运转的核心是<strong>动态链接</strong>。何为动态链接，可以简单地理解为在编译的时候只留下接口，运行时候再去调用。Windows提供了丰富的可供应用利用的函数调用，这些函数采用动态链接库（DLL）实现。<br>
+WinAPI是一个基于C语言的接口，但可以由不同语言编写的程序来调用。</p>
+<p>每个以字符串为参数的Win32函数在操作系统中都有两个版本，用于处理单字节方式和双字节方式的字符。例如编程使用的MessageBox有MessageBoxA和MessageBoxW版本。以MessageBox函数为例。<br>
+<img src="https://Corax0o0.github.io/post-images/1669607953728.png" alt="" loading="lazy"><br>
+可以看出MessageExA其实是一个替换翻译层，用来分配内存并将ANSI字符串转换成Unicode，在调用W版本执行。</p>
+<h2 id="wow64">WOW64</h2>
+<p>WOW64是Windows操作系统的子系统，使大部分32位应用程序在不修改的情况下运行在64位系统。</p>
+<h2 id="windows消息机制">Windows消息机制</h2>
+<p>它提供应用程序和应用程序之间的，应用程序和Windows系统之间的通信的手段。<br>
+有两种消息队列：一个是系统消息队列另一个是应用程序消息队列。当一个事件发生的时候，Windows将输入的消息放入系统消息队列，再将输入的信息复制到应用程序队列。而应用程序当中有一段叫做消息循环的代码，用来从消息队列中检索这些消息并把它们分布至相应的窗口。<br>
+一个事件从发生到结束都要进行上述过程，所以就跟队列一样先进先出，消息也需要先后排队。</p>
+<h2 id="虚拟内存">虚拟内存</h2>
+<p>Win32的平坦内存模式使每个程序都可以拥有自己的虚拟内存空间。<strong>每个程序的4GB寻址空间互不干扰</strong>对32位进程，地址空间是4GB，因为32位指针拥有00000000h~FFFFFFFFh任何值。<br>
+虚拟内存是通过映射的方法使可使用的虚拟内存达到4GB，有的甚至更多。物理内存中因为DLL代码和系统代码中的进程需要时时刻刻进行，所以他也时时刻刻被映射。用户自己打开的进程则只需要在自己的时间段被映射，所以它也是有选择地被映射。步骤如下：<br>
+<img src="https://Corax0o0.github.io/post-images/1669609109883.png" alt="" loading="lazy"><br>
+<strong>有几点需要注意：</strong><br>
+1.应用程序不会直接访问物理地址。<br>
+2.虚拟内存 管理器通过虚拟地址的访问请求来控制所有的物理地址访问。<br>
+3.每个应用程序都有独立的4GB寻址空间,不同应用程序的地址空间是彼此隔离的。<br>
+4.DLL程序没有“私有&quot;空间，它们总是被映射到其他应用程序的地址空间中，作为其他应用程序的一部分运行。其原因是:如果DLL不与其他程序处于同一个地址空间，应用程序就无法调用它。</p>
+]]></content>
+    </entry>
+</feed>
